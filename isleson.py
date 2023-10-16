@@ -17,51 +17,6 @@ columnnames=['id','month','n_seconds_1','n_seconds_2','n_seconds_3','carrier','d
 data.columns=columnnames
 #data.head()
 # Yeni sütunları oluşturun
-data["menus_1"] = 0
-data["menus_2"] = 0
-data["menus_3"] = 0
-data["menus_4"] = 0
-data["menus_5"] = 0
-data["menus_6"] = 0
-data["menus_7"] = 0
-data["menus_8"] = 0
-data["menus_9"] = 0
-
-
-
-data.head()
-
-def sigmoid(logit):
-    return 1 / (1 + math.exp(-logit))
-
-a=0
-for menus in data['menus']:
-   menu_sirasi=0
-   for menu in menus :
-     gelen_veri = menu #menu2
-     sayisal_veri = 0
-
-     for karakter in gelen_veri:
-        if karakter.isdigit():  # Karakter bir sayı ise
-           sayisal_veri += int(karakter)
-           print(sayisal_veri)
-     if(sayisal_veri !=0):
-       menu_sirasi+=1
-       label=f'menus_{sayisal_veri}'
-      # label2=f'n_seconds_{menu_sirasi}'
-       data.loc[a, label] = 1
-   a+=1
-data = data.fillna(0)
-
-for d in range(0,47):
-  i=0
-  for veri in data[f'feature_{d}']:
-    data.loc[i,f'feature_{d}']=sigmoid(data.loc[i,f'feature_{d}'])
-    i+=1
-
-# Verisetini kaydedin
-data.to_csv("train_final2.csv",index=False)
-data.head()
 
 x = data.drop(columns=['menus','id','month','carrier','devicebrand','n_seconds_1','n_seconds_2','n_seconds_3','menus_1','menus_2','menus_3','menus_4','menus_5','menus_6','menus_7','menus_8','menus_9'])
 y = data.menus_1.values.reshape(-1,)
